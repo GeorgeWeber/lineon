@@ -333,14 +333,19 @@ def register_callbacks(app):
 
             all_plot_data.append(plot_data)
 
-            # Collect points for axis range calculation
-            for point_set in [
-                plot_data["unmapped_points"],
-                plot_data["mapped_points"],
-            ]:
-                if len(point_set) > 0:
-                    all_points_x.extend(point_set[:, 0])
-                    all_points_y.extend(point_set[:, 1])
+            # Collect points for axis range calculation - include ALL relevant points
+            # Consider all points that will be shown in the plot
+            for key in ["unmapped_points", "mapped_points"]:
+                if len(plot_data[key]) > 0:
+                    all_points_x.extend(plot_data[key][:, 0])
+                    all_points_y.extend(plot_data[key][:, 1])
+
+            # Also consider arrow endpoints for mapped reference arrows which may extend beyond the shape
+            for key in ["mapped_ref_arrows"]:
+                if key in plot_data:
+                    for _, _, x1, y1 in plot_data[key]:
+                        all_points_x.append(x1)
+                        all_points_y.append(y1)
 
         # Calculate the global axis range if we have points
         global_axis_range = None
@@ -353,10 +358,15 @@ def register_callbacks(app):
             y_range = y_max - y_min
             max_range = max(x_range, y_range)
 
-            # Center the range and add padding (20%)
-            padding = max_range * 0.2
+            # Center the range and add minimal padding (10% instead of 20%)
+            padding = max_range * 0.05  # Reduced padding for larger display area
             x_center = (x_max + x_min) / 2
             y_center = (y_max + y_min) / 2
+
+            # Make sure we always include the origin with sufficient padding
+            # This ensures reference vectors are always visible
+            min_range = 2.2  # Minimum range to ensure the unit circle fits
+            max_range = max(max_range, min_range)
 
             global_axis_range = {
                 "x": [

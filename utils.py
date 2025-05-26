@@ -631,7 +631,8 @@ def create_plot(plot_data, display_options, axis_range=None):
             "scaleratio": 1,  # 1:1 aspect ratio
             "constrain": "domain",  # Constrain to domain
         },
-        "margin": {"l": 1, "r": 1, "t": 1, "b": 1},  # Minimize margins
+        # Use minimal margins to maximize the plotting area
+        "margin": {"l": 0, "r": 0, "t": 0, "b": 0, "pad": 0},
         "autosize": True,
     }
 
