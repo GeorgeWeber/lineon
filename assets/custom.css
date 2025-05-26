@@ -85,3 +85,55 @@ hr {
     margin-top: 0.5rem;
     margin-bottom: 1.5rem;
 }
+
+/* Styling for matrix input cards */
+.form-control {
+    background-color: #333;
+    color: #fff;
+    border-color: #555;
+}
+
+.form-control:focus {
+    background-color: #444;
+    color: #fff;
+    border-color: #a85259;
+    box-shadow: 0 0 0 0.2rem rgba(168, 82, 89, 0.25);
+}
+
+/* Matrix selection buttons */
+.btn-secondary {
+    background-color: #444444 !important;
+    border-color: #555555 !important;
+}
+
+.btn-outline-secondary {
+    color: #cccccc !important;
+    border-color: #555555 !important;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #555555 !important;
+    color: #fff !important;
+}
+
+/* Selected matrix indicator */
+.btn-secondary:not([outline="true"]) {
+    background-color: #555555 !important;
+    border-color: #777777 !important;
+    color: #fff !important;
+}
+
+/* Styling for matrix input cards */
+.matrix-input-card {
+    height: 100%;
+}
+
+.matrix-input-card .card-body {
+    padding: 0.5rem;
+}
+
+.matrix-input-card input.form-control {
+    font-size: 0.9rem;
+    padding: 0.25rem;
+    text-align: center;
+}
