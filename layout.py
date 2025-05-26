@@ -1,6 +1,10 @@
 import dash_bootstrap_components as dbc
 from dash import dcc, html
 
+# Define a consistent, brighter accent color for better visibility
+ACCENT_COLOR = "#bbb"  # Brighter gray that's clearly visible on dark backgrounds
+BUTTON_COLOR = "#a85259"  # Brighter version of the button color for better visibility
+
 
 def create_display(id_prefix, title):
     """
@@ -40,15 +44,21 @@ def create_layout():
                     html.Div(
                         [
                             html.H1(
-                                "Lineon", className="text-center text-primary mb-2"
+                                "Lineon",
+                                className="text-center mb-2",
+                                style={
+                                    "color": BUTTON_COLOR,
+                                    "text-shadow": "1px 1px 3px rgba(0,0,0,0.5)",  # Added shadow for depth
+                                },
                             ),
                             html.H5(
                                 "Visualizing 2D Linear Transformations",
-                                className="text-center text-info mb-4",  # Changed from text-light to text-info for better contrast
+                                className="text-center mb-4",
                                 style={
-                                    "text-shadow": "1px 1px 2px rgba(0,0,0,0.5)",  # Add subtle shadow for depth
-                                    "letter-spacing": "0.5px",  # Slightly increase letter spacing
-                                    "font-weight": "500",  # Medium weight for better visibility
+                                    "color": ACCENT_COLOR,  # Darker consistent accent color
+                                    "text-shadow": "1px 1px 2px rgba(0,0,0,0.5)",
+                                    "letter-spacing": "0.5px",
+                                    "font-weight": "500",
                                 },
                             ),
                         ]
@@ -100,8 +110,11 @@ def create_layout():
                                 ),
                                 dbc.CardBody(
                                     [
-                                        # Display Buttons with more obvious selection state
-                                        html.H6("Select Display", className="mb-2"),
+                                        # All headings use consistent color and styling
+                                        html.H6(
+                                            "Select Display",
+                                            className="mb-2 section-header",  # Use class instead of inline style
+                                        ),
                                         dbc.ButtonGroup(
                                             [
                                                 dbc.Button(
@@ -123,9 +136,12 @@ def create_layout():
                                                 html.H5(
                                                     "Settings for Display 1",
                                                     id="settings-title",
-                                                    className="text-center mb-3",
+                                                    className="text-center mb-3 section-header",  # Use class
                                                 ),
-                                                html.H6("Operation", className="mt-3"),
+                                                html.H6(
+                                                    "Operation",
+                                                    className="mt-3 section-header",  # Use class
+                                                ),
                                                 dcc.Dropdown(
                                                     id="operation-dropdown",
                                                     options=[
@@ -169,7 +185,10 @@ def create_layout():
                                                     value="none",
                                                     className="mb-3",
                                                 ),
-                                                html.H6("Scaling", className="mt-3"),
+                                                html.H6(
+                                                    "Scaling",
+                                                    className="mt-3 section-header",  # Use class
+                                                ),
                                                 dcc.Dropdown(
                                                     id="scaling-dropdown",
                                                     options=[
@@ -197,7 +216,10 @@ def create_layout():
                                                     value="original",
                                                     className="mb-3",
                                                 ),
-                                                html.H6("View Mode", className="mt-3"),
+                                                html.H6(
+                                                    "View Mode",
+                                                    className="mt-3 section-header",  # Use class
+                                                ),
                                                 dcc.Dropdown(
                                                     id="view-dropdown",
                                                     options=[
@@ -217,7 +239,10 @@ def create_layout():
                                                     value="map",
                                                     className="mb-3",
                                                 ),
-                                                html.H6("Shape", className="mt-3"),
+                                                html.H6(
+                                                    "Shape",
+                                                    className="mt-3 section-header",  # Use class
+                                                ),
                                                 dcc.Dropdown(
                                                     id="shape-dropdown",
                                                     options=[
@@ -238,19 +263,21 @@ def create_layout():
                                                     className="mb-3",
                                                 ),
                                                 html.H6(
-                                                    "Number of Arrows", className="mt-3"
+                                                    "Number of Arrows",
+                                                    className="mt-3 section-header",  # Use class
                                                 ),
                                                 dcc.Input(
                                                     id="num-arrows-input",
                                                     type="number",
-                                                    value=12,
+                                                    value=32,
                                                     min=4,
                                                     max=100,
                                                     step=1,
                                                     className="form-control mb-3",
                                                 ),
                                                 html.H6(
-                                                    "Display Options", className="mt-3"
+                                                    "Display Options",
+                                                    className="mt-3 section-header",  # Use class
                                                 ),
                                                 dbc.Checklist(
                                                     id="display-options",
@@ -286,7 +313,8 @@ def create_layout():
                                                         "show_unmapped_outline",
                                                         "show_mapped_outline",
                                                     ],
-                                                    className="mb-3",
+                                                    className="mb-3 custom-checklist",
+                                                    switch=True,
                                                 ),
                                                 # Hidden div to store active display
                                                 html.Div(
@@ -302,7 +330,7 @@ def create_layout():
                                                         "scaling": "original",
                                                         "view": "map",
                                                         "shape": "circle",
-                                                        "num_arrows": 12,
+                                                        "num_arrows": 32,
                                                         "display_options": [
                                                             "show_unmapped_arrows",
                                                             "show_mapped_arrows",
@@ -318,7 +346,7 @@ def create_layout():
                                                         "scaling": "original",
                                                         "view": "map",
                                                         "shape": "circle",
-                                                        "num_arrows": 12,
+                                                        "num_arrows": 32,
                                                         "display_options": [
                                                             "show_unmapped_arrows",
                                                             "show_mapped_arrows",
@@ -334,7 +362,7 @@ def create_layout():
                                                         "scaling": "original",
                                                         "view": "map",
                                                         "shape": "circle",
-                                                        "num_arrows": 12,
+                                                        "num_arrows": 32,
                                                         "display_options": [
                                                             "show_unmapped_arrows",
                                                             "show_mapped_arrows",
@@ -350,7 +378,7 @@ def create_layout():
                                                         "scaling": "original",
                                                         "view": "map",
                                                         "shape": "circle",
-                                                        "num_arrows": 12,
+                                                        "num_arrows": 32,
                                                         "display_options": [
                                                             "show_unmapped_arrows",
                                                             "show_mapped_arrows",

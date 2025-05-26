@@ -23,3 +23,56 @@
     line-height: 1.0;
     white-space: nowrap;
 }
+
+/* Button styling for display selection */
+.btn-primary {
+    background-color: #a85259 !important;
+    border-color: #a85259 !important;
+}
+
+.btn-outline-primary {
+    color: #a85259 !important;
+    border-color: #a85259 !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: #a85259 !important;
+    color: #fff !important;
+}
+
+/* Checkbox styling for Display Options */
+.custom-control-input:checked ~ .custom-control-label::before,
+.form-check-input:checked {
+    background-color: #a85259 !important;
+    border-color: #a85259 !important;
+}
+
+/* Consistent heading colors */
+h5.text-info {
+    color: #57272c !important;
+}
+
+/* Style the dropdown toggles */
+.Select-control {
+    border-color: #6C5B7B !important;
+}
+
+.Select-control:hover {
+    border-color: #57272c !important;
+}
+
+/* Improve visibility for switch toggles */
+.custom-switch .custom-control-label::before {
+    background-color: #444;
+}
+
+/* Lighten label text for better readability */
+.custom-checklist label {
+    color: #e2e2e2 !important;
+}
+
+/* Section header styling - brighter to be more visible */
+.section-header {
+    color: #333;  /* Brighter gray for better visibility on dark background */
+    font-weight: 500;
+}
