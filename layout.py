@@ -132,11 +132,13 @@ def create_layout():
                                         # Selected Display Options
                                         html.Div(
                                             [
-                                                # Display title
-                                                html.H5(
-                                                    "Settings for Display 1",
+                                                # Replace title with horizontal line for separation
+                                                html.Hr(className="mb-4 mt-2"),
+                                                # Store the display number in a hidden div
+                                                html.Div(
+                                                    "",
                                                     id="settings-title",
-                                                    className="text-center mb-3 section-header",  # Use class
+                                                    style={"display": "none"},
                                                 ),
                                                 html.H6(
                                                     "Operation",
@@ -217,7 +219,7 @@ def create_layout():
                                                     className="mb-3",
                                                 ),
                                                 html.H6(
-                                                    "View Mode",
+                                                    "View",
                                                     className="mt-3 section-header",  # Use class
                                                 ),
                                                 dcc.Dropdown(
