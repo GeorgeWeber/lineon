@@ -11,7 +11,11 @@ from callbacks import register_callbacks
 from layout import create_layout
 
 # Initialize the app
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.CYBORG])
+app = dash.Dash(
+    __name__,
+    external_stylesheets=[dbc.themes.CYBORG],
+    suppress_callback_exceptions=True,
+)  # Added this option
 app.title = "Lineon"
 
 # Set the layout

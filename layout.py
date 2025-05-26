@@ -2,6 +2,35 @@ import dash_bootstrap_components as dbc
 from dash import dcc, html
 
 
+def create_display(id_prefix, title):
+    """
+    Creates a display component with the given ID prefix and title.
+    """
+    return dbc.Card(
+        [
+            dbc.CardHeader(
+                [
+                    html.Div(title, className="card-title"),
+                    html.Div(
+                        id=f"{id_prefix}-operation-name", className="operation-name"
+                    ),
+                    html.Div(id=f"{id_prefix}-matrix", className="matrix-display"),
+                ]
+            ),
+            dbc.CardBody(
+                [
+                    dcc.Graph(
+                        id=f"{id_prefix}-graph",
+                        config={"displayModeBar": False},
+                        className="display-graph",
+                    )
+                ]
+            ),
+        ],
+        className="display-card",
+    )
+
+
 def create_layout():
     return dbc.Container(
         [
@@ -346,10 +375,7 @@ def create_layout():
                         dbc.Row(
                             [
                                 dbc.Col(
-                                    dcc.Graph(
-                                        id=f"display-{i}",
-                                        config={"displayModeBar": False},
-                                    ),
+                                    create_display(f"display-{i}", f"Display {i}"),
                                     width=6,
                                 )
                                 for i in range(1, 5)

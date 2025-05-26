@@ -235,9 +235,55 @@ def register_callbacks(app):
 
         return current_settings
 
+    # Update operation names and matrices for each display
+    for i in range(1, 5):
+
+        @app.callback(
+            [
+                Output(f"display-{i}-operation-name", "children"),
+                Output(f"display-{i}-matrix", "children"),
+            ],
+            [
+                Input(f"display-{i}-settings", "data"),
+                Input(f"a11", "value"),
+                Input(f"a12", "value"),
+                Input(f"a21", "value"),
+                Input(f"a22", "value"),
+            ],
+        )
+        def update_display_info(settings, a11, a12, a21, a22, display_id=i):
+            # Get the matrix
+            base_matrix = np.array(
+                [
+                    [a11 if a11 is not None else 1, a12 if a12 is not None else 0],
+                    [a21 if a21 is not None else 0, a22 if a22 is not None else 1],
+                ]
+            )
+
+            # Apply the operation to get the actual matrix for this display
+            matrix = base_matrix.copy()
+            operation = settings.get("operation", "none")
+
+            if operation != "none":
+                matrix = apply_operation(matrix, operation)
+                operation_name = operation.capitalize()
+            else:
+                operation_name = "Original"
+
+            # Apply scaling if needed
+            scaling = settings.get("scaling", "original")
+            if scaling != "original":
+                matrix = apply_scaling(matrix, scaling)
+                operation_name += f" ({scaling.capitalize()})"
+
+            # Format the matrix for display
+            matrix_text = format_matrix(matrix)
+
+            return operation_name, matrix_text
+
     # Main callback to update all plots with synchronized axes
     @app.callback(
-        [Output(f"display-{i}", "figure") for i in range(1, 5)],
+        [Output(f"display-{i}-graph", "figure") for i in range(1, 5)],
         [
             # Matrix inputs
             Input(f"a{i}{j}", "value")
@@ -331,3 +377,14 @@ def register_callbacks(app):
             figures.append(fig)
 
         return figures
+
+
+def format_matrix(matrix):
+    """Format a 2x2 matrix for display with one decimal place, on two lines with HTML."""
+    return html.Div(
+        [
+            html.Div(f"[ {matrix[0][0]:.1f}  {matrix[0][1]:.1f} ]"),
+            html.Div(f"[ {matrix[1][0]:.1f}  {matrix[1][1]:.1f} ]"),
+        ],
+        style={"lineHeight": "1.1"},
+    )
