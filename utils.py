@@ -37,6 +37,18 @@ def apply_operation(matrix, operation):
             return p  # positive semi-definite component (stretch)
         except:
             return np.eye(2)
+    elif operation == "volumetric":
+        # Volumetric part: 1/2 tr(M) * identity
+        trace = np.trace(matrix)
+        return 0.5 * trace * np.eye(2)
+    elif operation == "deviatoric":
+        # Deviatoric part: M - 1/2 tr(M) * identity
+        trace = np.trace(matrix)
+        return matrix - 0.5 * trace * np.eye(2)
+    elif operation == "subtract_identity":
+        # Subtract identity matrix
+        return matrix - np.eye(2)
+
     return matrix
 
 

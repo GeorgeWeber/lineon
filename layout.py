@@ -260,6 +260,19 @@ def create_layout():
                                                             "label": "Stretch",
                                                             "value": "stretch",
                                                         },
+                                                        # Add the new operations here
+                                                        {
+                                                            "label": "Volumetric",
+                                                            "value": "volumetric",
+                                                        },
+                                                        {
+                                                            "label": "Deviatoric",
+                                                            "value": "deviatoric",
+                                                        },
+                                                        {
+                                                            "label": "Subtract Identity",
+                                                            "value": "subtract_identity",
+                                                        },
                                                     ],
                                                     value="none",
                                                     className="mb-3",
